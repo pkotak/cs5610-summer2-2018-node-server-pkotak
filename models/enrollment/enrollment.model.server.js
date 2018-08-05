@@ -5,6 +5,13 @@ var enrollmentModel = mongoose.model('EnrollmentModel', enrollmentSchema);
 enrollStudentInSection = enrollment =>
     enrollmentModel.create(enrollment);
 
+removeStudentInSection = (studentId, sectionId) =>
+    enrollmentModel.remove({
+        $and: [
+            {student: studentId},
+            {section: sectionId}
+        ]})
+
 findSectionsForStudent = studentId =>
     enrollmentModel
         .find({student: studentId})
@@ -13,5 +20,6 @@ findSectionsForStudent = studentId =>
 
 module.exports = {
     enrollStudentInSection: enrollStudentInSection,
+    removeStudentInSection: removeStudentInSection,
     findSectionsForStudent: findSectionsForStudent
 }

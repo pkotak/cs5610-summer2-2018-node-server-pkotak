@@ -19,15 +19,22 @@ module.exports = function (app) {
   function enrollStudentInSection(req, res) {
     var sectionId = req.params['sectionId'];
     var studentId = req.session['currentUser']._id;
+    var toEnroll = req.body.toEnroll;
     var enrollment = {
         student: studentId,
         section: sectionId
     }
 
-    sectionModel
-        .decrementSectionSeats(sectionId)
-        .then(() => {return enrollmentModel.enrollStudentInSection(enrollment)})
-        .then(enrollment => res.json(enrollment));
+    if(toEnroll)
+        sectionModel
+            .decrementSectionSeats(sectionId)
+            .then(() => {return enrollmentModel.enrollStudentInSection(enrollment)})
+            .then(enrollment => res.json(enrollment));
+    else
+        sectionModel
+            .incrementSectionSeats(sectionId)
+            .then(() => {return enrollmentModel.removeStudentInSection(studentId, sectionId)})
+            .then(enrollment => res.json(enrollment));
   }
 
   function findAllSections(req, res) {
