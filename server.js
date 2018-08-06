@@ -2,7 +2,7 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/user');
+mongoose.connect('mongodb://' + process.env.DBUSERNAME + ':'+ process.env.DBPASSWORD + '@ds113122.mlab.com:13122/course-management');
 
 var app = express();
 
