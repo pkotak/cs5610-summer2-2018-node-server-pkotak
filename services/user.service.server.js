@@ -32,12 +32,20 @@ module.exports = function (app) {
     }
 
     function createUser(req, res) {
-        var user = req.body;
-        userModel.createUser(user)
+        var newUser = req.body;
+        userModel.findUserByUsername(newUser.username)
             .then(function (user) {
-                req.session['currentUser'] = user;
-                res.send(user);
-            });
+                if(user == null){
+                    userModel.createUser(newUser)
+                        .then(function (response) {
+                            req.session['currentUser'] = response;
+                            res.send(response);
+                        });
+                }else {
+                    res.send(404);
+                }
+            })
+
     }
 
     function updateUser(req, res) {

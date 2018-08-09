@@ -22,6 +22,10 @@ function findUserByCredentials(credentials) {
     return userModel.findOne(credentials);
 }
 
+function findUserByUsername(username) {
+    return userModel.findOne({username: username});
+}
+
 function deleteUser(id) {
     return userModel.remove({_id: id});
 }
@@ -32,6 +36,7 @@ var api = {
     findAllUsers: findAllUsers,
     findUserById: findUserById,
     deleteUser: deleteUser,
+    findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials
 }
 
