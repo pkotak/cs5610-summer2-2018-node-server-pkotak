@@ -9,10 +9,7 @@ var submissionSchema = mongoose.Schema({
         ref: 'QuizModel'
     },
     answers: [{
-      fillBlanksAnswer: {
-          variable: String,
-          value: String
-      },
+      fillBlanksAnswer: Object,
         multipleChoiceAnswer: Number,
         trueFalseAnswer: Boolean,
         essayAnswer: String,
