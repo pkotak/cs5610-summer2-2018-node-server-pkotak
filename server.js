@@ -31,8 +31,9 @@ app.use(session({
     secret: 'any string'
 }));
 
-var userService = require('./services/user.service.server');
-userService(app);
-
+require('./services/user.service.server')(app);
+require('./services/quiz.service.server')(app);
+require('./services/question.service.server')(app);
 require('./services/section.service.server')(app);
+
 app.listen(process.env.PORT || 3000)
